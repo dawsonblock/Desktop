@@ -57,6 +57,13 @@ Traditional Approach:          RFSN Approach:
 - 🔄 **Multi-Modal Control** - Switch between joint-space MPC, task-space MPC, impedance, or PD control
 - 📐 **Dexterous Manipulation** - Optimize EE motion directly for better precision and obstacle avoidance
 
+### 🆕 NEW: Reinforcement Learning Layer
+
+- 🧠 **Recurrent PPO** - Standalone PyTorch implementation of Proximal Policy Optimization
+- ➰ **LSTM Memory** - Recurrent architecture for stateful manipulation and memory-augmented control
+- 🏗️ **End-Effector Delta Control** - Learns directly in task space via normalized IK deltas
+- 🏆 **Shaped Rewards** - Dense density modeling with contact bonuses and grasp incentives
+
 ## 🚀 Quick Start
 
 ### Controller Modes (v8)
@@ -75,6 +82,21 @@ python -m eval.run_benchmark --mode rfsn --controller TASK_SPACE_MPC --episodes 
 
 # v8: Impedance control (compliant, force-based)
 python -m eval.run_benchmark --mode rfsn --controller IMPEDANCE --episodes 10
+```
+
+### Reinforcement Learning (RL) Mode
+
+The newest layer of RFSN allows the robot to learn complex manipulation directly from simulation:
+
+```bash
+# 1. Train the Recurrent PPO agent (saves to checkpoints/)
+python3 train_rl.py
+
+# 2. Run the trained policy in an interactive demo
+python3 demos/rl_policy_demo.py
+
+# 3. Verify success rates via batch evaluation
+python3 verify_policy.py
 ```
 
 ### Three Operating Modes
